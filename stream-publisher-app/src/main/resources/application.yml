@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: stream-publisher-app
+server:
+  port: 8012
