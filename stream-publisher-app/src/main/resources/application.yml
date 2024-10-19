@@ -1,5 +1,28 @@
 spring:
   application:
     name: stream-publisher-app
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    password: ${RABBITMQ_PASSWORD:guest}
+    username: ${RABBITMQ_USERNAME:guest}
+  cloud:
+    stream:
+      bindings:
+        kimhabChannel:
+          destination: my-queue-spring-cloud-stream
+      rabbit:
+        bindings:
+          kimhabChannel:
+            producer:
+              batching-enabled: true
+              batch-size: 100
+              batch-buffer-limit: 1000
+              batch-timeout: 1000
+
 server:
   port: 8012
+
+logging:
+  level:
+    org.springframework.amqp.rabbit: debug

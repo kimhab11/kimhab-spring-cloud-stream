@@ -1,4 +1,4 @@
-rootProject.name = 'spring-cloud-stream'
+rootProject.name = 'kimhab-spring-cloud-stream'
 include 'stream-consumer-app'
 include 'stream-publisher-app'
 

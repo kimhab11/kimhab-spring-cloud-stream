@@ -1,5 +1,36 @@
+server:
+  port: 8011
+
 spring:
   application:
     name: stream-consumer-app
-server:
-  port: 8011
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    password: ${RABBITMQ_PASSWORD:guest}
+    username: ${RABBITMQ_USERNAME:guest}
+  cloud:
+    stream:
+      rabbit:
+        bindings:
+          input:
+            consumer:
+              auto-bind-dlq: true
+
+      bindings:
+        input:
+          destination: my-queue-spring-cloud-stream
+          group: my-consumer-group-spring-cloud-stream
+#          consumer:
+#            max-attempts: 3 # Number of retry attempts before sending to
+#            partitioned: true
+#            instance-index: 0
+#            instance-count: 3
+         #   error-handler-definition: handleBindingError
+#      function:
+#        default:
+#          error-handler-definition: handleGlobalError
+
+logging:
+  level:
+    org.springframework.amqp.rabbit: debug
